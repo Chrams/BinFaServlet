@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Start Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <form action="FileUploadServlet" method="POST" enctype="multipart/form-data">
+            Select File to Upload:<input type="file" name="fileName" multiple/>
+            <br/>
+            <input type="submit" value="Upload"/>
+        </form>
+        <form action="FileUploadServlet" method="GET">
+            Data:<input type="text" name="data"/>
+            <input type="radio" name="dataType" value="binary"/>Binary
+            <input type="radio" name="dataType" value="char" checked/>Character
+            <br/>
+            <input type="submit" value="Exec"/>
+        </form>
+    </body>
+</html>
