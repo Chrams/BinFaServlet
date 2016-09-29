@@ -1,21 +1,58 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>LZWTree Servlet</title>
+        <link rel="stylesheet" type="text/css" href="styles.css"/>
     </head>
-    <body>
-        <form action="FileUploadServlet" method="POST" enctype="multipart/form-data">
-            Select File to Upload:<input type="file" name="fileName" multiple/>
-            <br/>
-            <input type="submit" value="Upload"/>
+<body>
+<ul class="tab">
+  <li><a href="#" class="tablinks" onclick="openCity(event, 'POST')">POST</a></li>
+  <li><a href="#" class="tablinks" onclick="openCity(event, 'GET')">GET</a></li>
+</ul>
+
+<div id="POST" class="tabcontent">
+  <form action="FileUploadServlet" method="POST" enctype="multipart/form-data">
+            <fieldset>
+                <legend style="font-weight:bold">HTTP POST</legend>
+                <label>Select File(s) to Upload:</label>
+                <br/>
+                <input type="file" name="fileName" multiple/>
+                <br/>
+                <input style="margin-top: 1em" type="submit" value="Upload"/>
+            </fieldset>
         </form>
-        <form action="FileUploadServlet" method="GET">
-            Data:<input type="text" name="data"/>
-            <input type="radio" name="dataType" value="binary"/>Binary
-            <input type="radio" name="dataType" value="char" checked/>Character
-            <br/>
-            <input type="submit" value="Exec"/>
-        </form>
-    </body>
-</html>
+</div>
+
+<div id="GET" class="tabcontent">
+  <form action="FileUploadServlet" method="GET">
+            <fieldset>
+                <legend style="font-weight:bold">HTTP GET</legend>
+                <label>Data:</label>
+                <input type="text" name="data"/>
+                <br/>
+                <input type="radio" name="dataType" value="binary"/>Binary
+                <input type="radio" name="dataType" value="char" checked/>Character
+                <br/>
+                <input style="margin-top: 1em" type="submit" value="Exec"/>
+            </fieldset>
+        </form> 
+</div>
+
+<script>
+function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+</script>
+     
+</body>
+</html> 

@@ -13,8 +13,10 @@
     </head>
     <body>
         <h1>LZWTree Servlet Response</h1>
+        <a href="#Bottom"><input type="button" value="To the Bottom"/></a>
         <p>${requestScope.message}</p>
         <hr/>
-        <a href="index.html">Back</a>
+        <a name="Bottom"/>
+        <a href="index.html"><input type="button" value="Back"/></a>
     </body>
 </html>

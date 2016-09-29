@@ -11,8 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
-//import javax.servlet.annotation.MultipartConfig;
-//import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,6 +50,12 @@ public class FileUploadServlet extends HttpServlet {
         //Get all the parts from request and write it to the file on server
         for (Part part : request.getParts()) {
             String fileName = getFileName(part);
+            if(fileName.isEmpty())
+            {
+                request.setAttribute("message", "Sadly, You didn't upload anything! :c");
+                getServletContext().getRequestDispatcher("/response.jsp").forward(request, response);
+            }
+            
             part.write(uploadFilePath + File.separator + fileName);
 
             java.io.FileInputStream inFile = new java.io.FileInputStream(uploadFilePath + File.separator + fileName);
@@ -89,6 +93,9 @@ public class FileUploadServlet extends HttpServlet {
                 }
             }
             inFile.close();
+            if(isImage(fileName)){
+                fileName = "<img style=max-width:10em src="+UPLOAD_DIR + File.separator + fileName+">";
+            }
             trees.put(fileName, tree);
             //trees.add(tree.toString());
         }
@@ -97,7 +104,8 @@ public class FileUploadServlet extends HttpServlet {
             output += s + "<hr/>";
         }*/
         for(String key : trees.keySet()){
-            output += "<br><b>Filename:</b> <i>" + key + "</i><br>" + trees.get(key).toString();
+            //output += "<br><b>Filename:</b> <i>" + key + "</i><br>" + trees.get(key).toString();
+            output += "<fieldset><legend>" + key + "</legend>" + trees.get(key).toString() + "</fieldset>";
         }
 
         request.setAttribute("message", "File uploaded successfully!<br/>" + output);
@@ -168,5 +176,10 @@ public class FileUploadServlet extends HttpServlet {
             }
         }
         return "";
+    }
+    private boolean isImage(String filename){
+        if(filename.contains(".png") || filename.contains(".jpg") ||
+                filename.contains(".jpeg")) return true;
+        else return false;
     }
 }
